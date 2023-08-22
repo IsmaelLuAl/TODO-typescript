@@ -3,13 +3,13 @@ import { Todo } from "./Todo";
 
 interface Props {
   todos: ListOfTodos;
-  onRemoveTodo: ({ id }: TodoId) => void;
+  removeTodo: ({ id }: TodoId) => void;
   // eslint-disable-next-line prettier/prettier
   onToggleTodoCompleteTodo: ({ id, completed }: Pick<TodoInter, 'id' | 'completed'>) => void
 }
 
 // eslint-disable-next-line prettier/prettier
-export const Todos: React.FC<Props> = ({ todos, onRemoveTodo, onToggleTodoCompleteTodo }) => {
+export const Todos: React.FC<Props> = ({ todos, removeTodo, onToggleTodoCompleteTodo }) => {
   return (
     <>
       <ul className="todo-list">
@@ -20,7 +20,7 @@ export const Todos: React.FC<Props> = ({ todos, onRemoveTodo, onToggleTodoComple
               id={todo.id}
               title={todo.title}
               completed={todo.completed}
-              onRemoveTodo={onRemoveTodo}
+              onRemoveTodo={removeTodo}
               onToggleTodoCompleteTodo={onToggleTodoCompleteTodo}
             />
           </li>
