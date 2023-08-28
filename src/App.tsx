@@ -7,7 +7,7 @@ import { useTodo } from "./hooks/useTodo";
 const App = () => {
   const {
     completedCount,
-    filteredTodos,
+    todos,
     filterSelected,
     activeCount,
     handleAddTodo,
@@ -21,7 +21,7 @@ const App = () => {
     <div className="todoapp">
       <Header addTodo={handleAddTodo} />
       <Todos
-        todos={filteredTodos}
+        todos={todos}
         removeTodo={handleRemove}
         onToggleTodoCompleteTodo={handleCompleted}
       />

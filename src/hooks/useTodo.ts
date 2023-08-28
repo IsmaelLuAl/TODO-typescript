@@ -1,8 +1,26 @@
 import { useState } from "react";
 import { TODO_FILTERS, mockTODOs } from "../const";
-import { FilterValue, TodoId, TodoInter, TodoTitle } from "../types";
+import {
+  FilterValue,
+  ListOfTodos,
+  TodoId,
+  TodoInter,
+  TodoTitle,
+} from "../types";
 
-export const useTodo = () => {
+export const useTodo = (): {
+  handleAddTodo: (title: TodoTitle) => void;
+  handleRemove: (id: TodoId) => void;
+  // eslint-disable-next-line prettier/prettier
+  handleCompleted: ({ id, completed }: Pick<TodoInter, "id" | "completed">) => void;
+  handleUpdateTitle: (params: { id: string; title: string }) => void;
+  handleFilterChange: (filter: FilterValue) => void;
+  handleRemoveAllCompleted: () => void;
+  completedCount: number;
+  todos: ListOfTodos;
+  filterSelected: FilterValue;
+  activeCount: number;
+} => {
   const [todos, setTodos] = useState(mockTODOs);
   const [filterSelected, setFilterSelected] = useState<FilterValue>(
     TODO_FILTERS.ALL,
@@ -59,14 +77,32 @@ export const useTodo = () => {
     return todo;
   });
 
+  // PREGUNTAR A JOSE LUIS //
+  // eslint-disable-next-line prettier/prettier
+  const handleUpdateTitle = ({ id, title }: { id: string, title: string }): void => {
+    const newTodos = todos.map((todo) => {
+      if (todo.id === id) {
+        return {
+          ...todo,
+          title,
+        };
+      }
+
+      return todo;
+    });
+
+    setTodos(newTodos);
+  };
+
   return {
     handleAddTodo,
     handleRemove,
     handleCompleted,
     handleFilterChange,
     handleRemoveAllCompleted,
+    handleUpdateTitle,
     completedCount,
-    filteredTodos,
+    todos: filteredTodos,
     filterSelected,
     activeCount,
   };
